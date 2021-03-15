@@ -14,12 +14,19 @@ abstract class PersonReportGenerator {
 
     private void writeReport(List<Person> people, String outputFile) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
-            people.stream()
-                    .filter(person -> person.getAge() < 31)
-                    .map(person -> person.getAge() + ":" + person.getFirstName() + " " + person.getLastName())
-                    .forEach(line -> wriLine(writer, line));
+            mapByAge(writer, people, 1, 30);
+            mapByAge(writer, people, 30, 50);
+            mapByAge(writer, people, 0, 30);
         }
 
+    }
+
+    private void mapByAge(BufferedWriter writer, List<Person> people, int minAge, int maxAge) {
+        wriLine(writer, minAge + "-" + maxAge + ":");
+        people.stream()
+                .filter(person -> person.getAge() >= minAge && person.getAge() <= maxAge)
+                .map(person -> person.getFirstName() + " " + person.getLastName())
+                .forEach(line -> wriLine(writer, line));
     }
 
     private void wriLine(BufferedWriter writer, String line) {
