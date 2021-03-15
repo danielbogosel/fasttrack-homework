@@ -10,8 +10,7 @@ public class Main {
     }
 
     private static void calculateTheWeight(Planet planet, double weight) {
-        System.out.print("The weight is: ");
-        System.out.println(planet.getWeightOnEarth(weight));
+        System.out.print("The weight is: " + planet.getWeightOnEarth(weight));
     }
 
     private static double readMass() {
