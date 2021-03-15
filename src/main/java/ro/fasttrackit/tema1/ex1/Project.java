@@ -1,16 +1,17 @@
 package ro.fasttrackit.tema1.ex1;
 
+import java.time.Period;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class Product {
+public class Project {
     private final String name;
     private final int price;
     private final List<Category> categories;
     private final String description;
 
-    public Product(String name, int price, List<Category> categories, String description) {
+    public Project(String name, int price, List<Category> categories, String description) {
         this.name = name;
         this.price = price;
         this.categories = categories;
@@ -37,7 +38,7 @@ public class Product {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
+        Project product = (Project) o;
         return price == product.price && Objects.equals(name, product.name) && Objects.equals(categories, product.categories) && Objects.equals(description, product.description);
     }
 
@@ -56,35 +57,39 @@ public class Product {
                 '}';
     }
 
-    static class ProductBuilder {
+    static class ProjectBuilder {
 
         private String name;
         private String description;
         private int price;
         private List<Category> categories;
 
-        public static ProductBuilder product() {
-            return new ProductBuilder();
+        public static ProjectBuilder project() {
+            return new ProjectBuilder();
         }
 
-        public ProductBuilder name(String name) {
+        public ProjectBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        public ProductBuilder price(int price) {
+        public ProjectBuilder price(int price) {
             this.price = price;
             return this;
         }
 
-        public ProductBuilder categories(List<Category> categories) {
+        public ProjectBuilder categories(List<Category> categories) {
             this.categories = Collections.unmodifiableList(categories);
             return this;
         }
 
-        public ProductBuilder description(String description) {
+        public ProjectBuilder description(String description) {
             this.description = description;
             return this;
+        }
+
+        public Project build() {
+            return new Project(name, price, categories, description);
         }
 
     }
